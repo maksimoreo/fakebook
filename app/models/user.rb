@@ -1,6 +1,10 @@
 class User < ApplicationRecord
   # Validations
-  # TODO:
+  validates :username,
+    presence: true,
+    format: { with: /\A\w+\z/, message: 'can only contain letters or digits' },
+    length: { in: 6..30 },
+    uniqueness: true
 
   # Assotiations
   # TODO:
