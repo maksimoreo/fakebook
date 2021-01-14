@@ -7,11 +7,14 @@ class User < ApplicationRecord
     uniqueness: true
 
   # Assotiations
-  # TODO:
   has_many :friendships_a, -> { where('accepted') }, class_name: 'Friendship', foreign_key: :from_user
   has_many :friendships_b, -> { where('accepted') }, class_name: 'Friendship', foreign_key: :to_user
   has_many :sent_friendship_requests, -> { where('NOT accepted') }, class_name: 'Friendship', foreign_key: :from_user
   has_many :incoming_friendship_requests, -> { where('NOT accepted') }, class_name: 'Friendship', foreign_key: :to_user
+
+  def friendships
+    friendships_a + friendships_b
+  end
 
   def friends
     ids_a = friendships_a.pluck(:to_user_id)
@@ -19,8 +22,17 @@ class User < ApplicationRecord
     User.where(id: ids_a + ids_b)
   end
 
-  def send_friendship_request(to_user)
-    Friendship.create(from_user: self, to_user: to_user)
+  def friends_with?(user)
+    f = friendship(user)
+    !f.nil? && f.accept = true
+  end
+
+  def friendship(user)
+    Friendship.find_by_users(self, user)
+  end
+
+  def new_friendship_request(to_user)
+    Friendship.new(from_user: self, to_user: to_user)
   end
 
   # Devise things

@@ -1,0 +1,19 @@
+<h1>Your friends</h1>
+
+<% if @friendships.empty? %>
+  <p>u don't have friends :(</p>
+<% else %>
+  <ul>
+    <% @friendships.each do |friendship| %>
+      <li>
+        <div>
+          <% friend = friendship.friend_of_user(current_user) %>
+          <%= link_to friend.username, friend %>
+          <%= form_with model: friendship, method: :delete do |f| %>
+            <%= f.submit 'Unfriend' %>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

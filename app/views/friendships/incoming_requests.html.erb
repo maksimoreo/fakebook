@@ -1,0 +1,12 @@
+<p>u have <%= @incoming_requests.count %> incoming friendship requests<p>
+
+<p>Accept all</p>
+<p>Decline all</p>
+
+<ul>
+  <% @incoming_requests.each do |friendship| %>
+    <li>
+      <%= render partial: 'friendships/incoming_request_form', object: friendship, as: 'friendship' %>
+    </li>
+  <% end %>
+</ul>

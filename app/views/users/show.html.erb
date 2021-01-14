@@ -1,2 +1,32 @@
 <h1><%= @user.username %></h1>
 <p>Email: <%= @user.email %></p>
+
+<% unless @user == current_user %>
+  <% if @friendship.nil? %>
+    <%= form_with url: friendships_url do |f| %>
+      <%= f.hidden_field :to_user_id, value: @user.id, name: 'friendship[to_user_id]' %>
+      <%= f.submit 'Send friend request' %>
+    <% end %>
+  <% else # Friendship exists %>
+    <% if @friendship.accepted? %>
+      <p>this user is ur friend
+        <%= form_with url: friendship_url(@friendship), method: :delete do |f| %>
+          <%= f.submit 'Unfriend' %>
+        <% end %>
+      </p>
+    <% else # Friendship is not accepted %>
+      <% if @friendship.sent_by_user? current_user %>
+        friendship request was sent by u, wait for user to reply
+      <% else %>
+        <%= render partial: 'friendships/incoming_request_form' %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<h1>Friends</h1>
+<ul>
+  <% @user.friends.each do |friend| %>
+    <li><%= link_to friend.username, user_path(friend) %></li>
+  <% end %>
+</ul>
