@@ -1,0 +1,24 @@
+<p>
+  <%= link_to 'Friends', friends_path %>
+  <%= link_to 'Incoming friendship requests', incoming_friendship_requests_path %>
+  <%= link_to 'Sent friendship requests', sent_friendship_requests_path %>
+</p>
+
+<h1>Your friends</h1>
+
+<% if @friends.empty? %>
+  <p>u don't have friends 🙁</p>
+<% else %>
+  <ul>
+    <% @friends.each do |friend| %>
+      <li>
+        <div>
+          <%= link_to friend.username, friend %>
+          <%= form_with url: friend_path(friend), method: :delete do |f| %>
+            <%= f.submit 'Unfriend' %>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

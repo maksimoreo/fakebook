@@ -17,6 +17,11 @@ class Friendship < ApplicationRecord
     Friendship.find_by(from_user: user2, to_user: user1)
   end
 
+  def self.find_by_user_ids(user1_id, user2_id)
+    Friendship.find_by(from_user_id: user1_id, to_user_id: user2_id) ||
+    Friendship.find_by(from_user_id: user2_id, to_user_id: user1_id)
+  end
+
   def sent_by_user?(user)
     from_user == user
   end

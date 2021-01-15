@@ -3,22 +3,25 @@
 
 <% unless @user == current_user %>
   <% if @friendship.nil? %>
-    <%= form_with url: friendships_url do |f| %>
-      <%= f.hidden_field :to_user_id, value: @user.id, name: 'friendship[to_user_id]' %>
+    <%= form_with url: sent_friendship_requests_path do |f| %>
+      <%= f.hidden_field :to_user_id, value: @user.id %>
       <%= f.submit 'Send friend request' %>
     <% end %>
   <% else # Friendship exists %>
     <% if @friendship.accepted? %>
       <p>this user is ur friend
-        <%= form_with url: friendship_url(@friendship), method: :delete do |f| %>
+        <%= form_with url: friend_url(@friendship.friend_of_user(current_user)), method: :delete do |f| %>
           <%= f.submit 'Unfriend' %>
         <% end %>
       </p>
     <% else # Friendship is not accepted %>
       <% if @friendship.sent_by_user? current_user %>
         friendship request was sent by u, wait for user to reply
+        <%= form_with url: friend_url(@friendship.friend_of_user(current_user)), method: :delete do |f| %>
+          <%= f.submit 'Delete request' %>
+        <% end %>
       <% else %>
-        <%= render partial: 'friendships/incoming_request_form' %>
+        <%= render partial: 'incoming_friendship_request/form' %>
       <% end %>
     <% end %>
   <% end %>

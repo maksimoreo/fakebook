@@ -1,0 +1,18 @@
+<p>
+  <%= link_to 'Friends', friends_path %>
+  <%= link_to 'Incoming friendship requests', incoming_friendship_requests_path %>
+  <%= link_to 'Sent friendship requests', sent_friendship_requests_path %>
+</p>
+
+<h1>u have <%= @incoming_friendship_requests.count %> incoming friendship requests</h1>
+
+<p>Accept all</p>
+<p>Decline all</p>
+
+<ul>
+  <% @incoming_friendship_requests.each do |friendship| %>
+    <li>
+      <%= render partial: 'incoming_friendship_requests/form', object: friendship, as: 'friendship' %>
+    </li>
+  <% end %>
+</ul>

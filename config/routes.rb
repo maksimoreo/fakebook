@@ -4,13 +4,7 @@ Rails.application.routes.draw do
   root to: 'users#index'
   resources :users, only: [:index, :show]
 
-  resources :friendships, only: [:create, :destroy, :index] do
-    member do
-      patch 'accept'
-    end
-
-    collection do
-      get 'incoming_requests'
-    end
-  end
+  resources :friends, only: [:index, :destroy]
+  resources :incoming_friendship_requests, only: [:index, :update, :destroy]
+  resources :sent_friendship_requests, only: [:index, :create, :destroy]
 end

@@ -1,0 +1,8 @@
+<p><%= link_to friendship.from_user.username, user_path(friendship.from_user) %> wants to become friends with you!
+  <%= form_with url: incoming_friendship_request_path(friendship), method: :patch do |f| %>
+    <%= f.submit 'Accept' %>
+  <% end %>
+  <%= form_with url: incoming_friendship_request_path(friendship), method: :delete do |f| %>
+    <%= f.submit 'Decline' %>
+  <% end %>
+</p>

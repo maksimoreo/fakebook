@@ -1,0 +1,19 @@
+<p>
+  <%= link_to 'Friends', friends_path %>
+  <%= link_to 'Incoming friendship requests', incoming_friendship_requests_path %>
+  <%= link_to 'Sent friendship requests', sent_friendship_requests_path %>
+</p>
+
+<h1>u have sent <%= @sent_friendship_requests.count %> friendship requests</h1>
+
+<ul>
+  <% @sent_friendship_requests.each do |friendship| %>
+    <li>
+      <% friend = friendship.friend_of_user(current_user) %>
+      <%= link_to friend.username, user_path(friend) %>
+      <%= form_with url: sent_friendship_request_path(friendship), method: :delete do |f| %>
+        <%= f.submit 'Delete request' %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

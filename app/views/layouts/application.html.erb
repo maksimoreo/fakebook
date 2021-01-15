@@ -23,8 +23,9 @@
       <li><%= link_to 'Root', root_path %></li>
       <% if user_signed_in? %>
         <li>Logged in as <%= current_user.username %>(<%= current_user.email %>)</li>
+        <li><%= link_to 'Friends', friends_path %></li>
         <% unless current_user.incoming_friendship_requests.empty? %>
-          <li>u hav <%= current_user.incoming_friendship_requests.count %> <%= link_to 'incoming friendship requests', incoming_requests_friendships_path %> </li>
+          <li>u hav <%= current_user.incoming_friendship_requests.count %> <%= link_to 'incoming friendship requests', incoming_friendship_requests_path %> </li>
         <% end %>
         <li><%= link_to 'Log out', destroy_user_session_path, method: :delete %>
       <% else %>
