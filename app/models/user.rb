@@ -6,7 +6,7 @@ class User < ApplicationRecord
     length: { in: 6..30 },
     uniqueness: true
 
-  # Assotiations
+  # Friendships
   has_many :friendships_a, -> { where('accepted') }, class_name: 'Friendship', foreign_key: :from_user
   has_many :friendships_b, -> { where('accepted') }, class_name: 'Friendship', foreign_key: :to_user
   has_many :sent_friendship_requests, -> { where('NOT accepted') }, class_name: 'Friendship', foreign_key: :from_user
@@ -34,6 +34,9 @@ class User < ApplicationRecord
   def new_friendship_request(to_user)
     Friendship.new(from_user: self, to_user: to_user)
   end
+
+  # Other
+  has_many :posts, foreign_key: :author_id
 
   # Devise things
   # Include default devise modules. Others available are:

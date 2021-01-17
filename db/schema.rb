@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_13_134017) do
+ActiveRecord::Schema.define(version: 2021_01_15_183919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,14 @@ ActiveRecord::Schema.define(version: 2021_01_13_134017) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["from_user_id"], name: "index_friendships_on_from_user_id"
     t.index ["to_user_id"], name: "index_friendships_on_to_user_id"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.text "text", null: false
+    t.bigint "author_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["author_id"], name: "index_posts_on_author_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -40,4 +48,5 @@ ActiveRecord::Schema.define(version: 2021_01_13_134017) do
 
   add_foreign_key "friendships", "users", column: "from_user_id"
   add_foreign_key "friendships", "users", column: "to_user_id"
+  add_foreign_key "posts", "users", column: "author_id"
 end

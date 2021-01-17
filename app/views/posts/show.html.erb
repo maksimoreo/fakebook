@@ -1,0 +1,11 @@
+<h1><%= @post.author.username %> on <%= @post.created_at %></h1>
+
+<% if @post.author == current_user %>
+  <%= link_to 'Edit', edit_post_path(@post) %>
+<% end %>
+
+<p><%= @post.text %></p>
+
+<p>9999 likes</p>
+
+<h1>9999 Comments</h1>
