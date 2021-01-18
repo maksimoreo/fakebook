@@ -21,6 +21,8 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @like = @post.likes.find_or_initialize_by(user: current_user)
+    # @like = @post.likes.new(user: current_user)
   end
 
   def edit

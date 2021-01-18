@@ -6,6 +6,16 @@
 
 <p><%= @post.text %></p>
 
-<p>9999 likes</p>
+<p><%= @post.likes.count %> likes |
+<% if @like.new_record? %>
+  <%= form_with model: [@post, @like] do |f| %>
+    <%= f.submit 'Like' %>
+  <% end %>
+<% else %>
+  <%= form_with model: [@post, @like], method: :delete do |f| %>
+    <%= f.submit 'Unlike' %>
+  <% end %>
+<% end %>
+</p>
 
 <h1>9999 Comments</h1>

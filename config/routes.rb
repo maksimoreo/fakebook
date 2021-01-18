@@ -13,6 +13,6 @@ Rails.application.routes.draw do
 
   # Posts
   resources :posts do
-
+    resources :likes, only: [:create, :destroy], controller: 'posts/likes'
   end
 end
