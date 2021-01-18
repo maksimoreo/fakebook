@@ -33,3 +33,8 @@
     <li><%= link_to friend.username, user_path(friend) %></li>
   <% end %>
 </ul>
+
+<h1><%= @user.username %>'s recent posts</h1>
+<% @user.posts.each do |post| %>
+  <%= render partial: 'posts/small', locals: { post: post } %>
+<% end %>

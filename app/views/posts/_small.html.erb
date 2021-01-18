@@ -1,0 +1,21 @@
+
+  <p>
+    <% if post.text.length > 200 %>
+      <%= post.text.first(200) %>...
+    <% else %>
+      <%= post.text %>
+    <% end %>
+  </p>
+  <p>
+    <%= link_to 'Read / Comment', post %> |
+    Author: <%= link_to post.author.username, post.author %> |
+    Created: <%= post.created_at %>
+
+    <% if post.created_at != post.updated_at %>
+      | Updated: <%= post.updated_at %>
+    <% end %>
+
+    <% if post.author == current_user %>
+      | <%= link_to 'Edit', edit_post_path(post) %>
+    <% end %>
+  </p>
