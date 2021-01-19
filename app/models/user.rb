@@ -36,8 +36,12 @@ class User < ApplicationRecord
     Friendship.find_by_users(self, user)
   end
 
-  def new_friendship_request(to_user)
-    Friendship.new(from_user: self, to_user: to_user)
+  def new_friendship_request(to_user_id)
+    Friendship.new(from_user: self, to_user_id: to_user_id)
+  end
+
+  def send_friendship_request(to_user)
+    Friendship.create(from_user: self, to_user: to_user)
   end
 
   # Devise things
