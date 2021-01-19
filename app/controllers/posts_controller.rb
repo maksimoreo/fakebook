@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   def index
-    @posts = Post.order(:created_at).limit(10)
+    user_ids = current_user.friends.ids.append(current_user.id)
+    @posts = Post.where(author_id: user_ids)
   end
 
   def new
