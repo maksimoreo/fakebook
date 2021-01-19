@@ -1,0 +1,13 @@
+<p><%= comment.text %></p>
+<p>
+  <%= comment.user.username %>
+  | <%= comment.created_at %>
+  <% if comment.updated_at != comment.created_at %>
+    | Edited: <%= comment.updated_at %>
+  <% end %>
+
+  <% if comment.user == current_user %>
+    | <%= link_to 'Edit', edit_post_comment_path(comment.post, comment) %>
+    | <%= link_to 'Delete', post_comment_path(comment.post, comment), method: :delete %>
+  <% end %>
+</p>

@@ -1,4 +1,9 @@
 class User < ApplicationRecord
+  # Associations
+  has_many :posts, foreign_key: :author_id
+  has_many :likes
+  has_many :comments
+
   # Validations
   validates :username,
     presence: true,
@@ -34,10 +39,6 @@ class User < ApplicationRecord
   def new_friendship_request(to_user)
     Friendship.new(from_user: self, to_user: to_user)
   end
-
-  # Other
-  has_many :posts, foreign_key: :author_id
-  has_many :likes
 
   # Devise things
   # Include default devise modules. Others available are:

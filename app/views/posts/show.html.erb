@@ -6,7 +6,8 @@
 
 <p><%= @post.text %></p>
 
-<p><%= @post.likes.count %> likes |
+<p>
+<%= @post.likes.count %> likes |
 <% if @like.new_record? %>
   <%= form_with model: [@post, @like] do |f| %>
     <%= f.submit 'Like' %>
@@ -16,6 +17,16 @@
     <%= f.submit 'Unlike' %>
   <% end %>
 <% end %>
+<% if @post.created_at != @post.updated_at %>
+  | Edited: <%= @post.updated_at %>
+<% end %>
 </p>
 
-<h1>9999 Comments</h1>
+<h1><%= @post.comments.order(created_at: :asc).count %> Comments</h1>
+<%= render partial: 'posts/comments/form', object: @comment %>
+
+<% @post.comments.each do |comment| %>
+  <% unless comment.new_record? %>
+    <%= render partial: 'posts/comments/comment', locals: { comment: comment } %>
+  <% end %>
+<% end %>
