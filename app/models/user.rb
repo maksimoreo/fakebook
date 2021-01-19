@@ -8,7 +8,7 @@ class User < ApplicationRecord
   validates :username,
     presence: true,
     format: { with: /\A\w+\z/, message: 'can only contain letters or digits' },
-    length: { in: 6..30 },
+    length: { in: 3..30 },
     uniqueness: true
 
   # Friendships
