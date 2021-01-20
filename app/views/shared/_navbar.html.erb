@@ -1,0 +1,46 @@
+<nav class="navbar", role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <%= link_to root_path, class: 'navbar-item' do %>
+      <%= image_tag 'icon_with_name.png', alt: 'Fakebook: a modern social network based on Facebook', size: '112x28' %>
+    <% end %>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start">
+      <%= link_to 'New post', new_post_path, class: 'navbar-item' %>
+    </div>
+    <div class="navbar-end">
+      <% if user_signed_in? %>
+        <% unless current_user.incoming_friendship_requests.empty? %>
+          <%= link_to pluralize(current_user.incoming_friendship_requests.count, 'friend request'), incoming_friendship_requests_path, class: 'navbar-item' %>
+        <% end %>
+
+        <%= link_to current_user, class: 'navbar-item' do %>
+          <span class="icon">
+            <% if current_user.avatar.attached? %>
+              <%= image_tag current_user.avatar.variant(resize_to_limit: [28, 28]), alt: 'User avatar', size: '28x28' %>
+            <% else %>
+              <%= image_tag 'user_icon.png', alt: 'User icon', size: '28x28' %>
+            <% end %>
+          </span>
+          <span>
+            <%= current_user.username %>
+          </span>
+        <% end %>
+
+        <div class="navbar-item" >
+          <p class="control">
+            <%= link_to 'Log out', destroy_user_session_path, method: :delete, class: 'button is-primary' %>
+          </p>
+        </div>
+      <% else %>
+        <%= link_to 'Log in', new_user_session_path, class: 'navbar-item' %>
+      <% end %>
+    </div>
+  </div>
+</nav>

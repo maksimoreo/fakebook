@@ -5,32 +5,23 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <h1>FakeBook🦇🦇🦇🕸</h1>
-
-    <hr>
-
+    <%= render 'shared/navbar' %>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 
     <hr>
 
     <ul>
-      <li><%= link_to 'Root', root_path %></li>
       <% if user_signed_in? %>
         <li>Logged in as <%= current_user.username %>(<%= current_user.email %>)</li>
-        <li><%= link_to 'Create new post', new_post_path %></li>
         <li><%= link_to 'Friends', friends_path %></li>
-        <% unless current_user.incoming_friendship_requests.empty? %>
-          <li>u hav <%= current_user.incoming_friendship_requests.count %> <%= link_to 'incoming friendship requests', incoming_friendship_requests_path %> </li>
-        <% end %>
-        <li><%= link_to 'Log out', destroy_user_session_path, method: :delete %>
-      <% else %>
-        <li><%= link_to 'Log in', new_user_session_path %></li>
       <% end %>
     </ul>
 
