@@ -1,6 +1,11 @@
 <h1><%= @user.username %></h1>
 <p>Email: <%= @user.email %></p>
 
+<% if @user.avatar.attached? %>
+  <p>Avatar:</p>
+  <%= image_tag @user.avatar %>
+<% end %>
+
 <% unless @user == current_user %>
   <% if @friendship.nil? %>
     <%= form_with url: sent_friendship_requests_path do |f| %>
