@@ -1,8 +1,7 @@
-<h1>Timeline</h1>
+<h1 class="is-size-1 has-text-weight-bold has-text-centered has-text-primary">Timeline</h1>
 
 <% @posts.each do |post| %>
   <hr>
   <%= render partial: 'posts/small', locals: { post: post } %>
 <% end %>
-
 <hr>

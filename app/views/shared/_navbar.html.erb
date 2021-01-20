@@ -1,18 +1,33 @@
-<nav class="navbar", role="navigation" aria-label="main navigation">
+<nav class="navbar has-shadow is-white", role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <%= link_to root_path, class: 'navbar-item' do %>
       <%= image_tag 'icon_with_name.png', alt: 'Fakebook: a modern social network based on Facebook', size: '112x28' %>
     <% end %>
 
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+    <a role="button" id="burger" class="navbar-burger" aria-label="menu" aria-expanded="false">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
     </a>
   </div>
-  <div class="navbar-menu">
+  <div class="navbar-menu" id="nav-links">
     <div class="navbar-start">
-      <%= link_to 'New post', new_post_path, class: 'navbar-item' %>
+      <%= link_to 'Home', posts_path, class: 'navbar-item' %>
+
+      <div class="navbar-item">
+        <%= link_to 'New post', new_post_path, class: 'button is-primary' %>
+      </div>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <%= link_to 'Explore', root_path, class: 'navbar-link' %>
+        <div class="navbar-dropdown">
+          <%= link_to 'Posts', root_path, class: 'navbar-item' %>
+          <%= link_to 'Users', root_path, class: 'navbar-item' %>
+          <%= link_to 'Friends', root_path, class: 'navbar-item' %>
+        </div>
+      </div>
+
+      <%= link_to 'About', root_path, class: 'navbar-item' %>
     </div>
     <div class="navbar-end">
       <% if user_signed_in? %>
@@ -23,9 +38,13 @@
         <%= link_to current_user, class: 'navbar-item' do %>
           <span class="icon">
             <% if current_user.avatar.attached? %>
-              <%= image_tag current_user.avatar.variant(resize_to_limit: [28, 28]), alt: 'User avatar', size: '28x28' %>
+              <figure class="image is-28x28">
+                <%= image_tag current_user.avatar.variant(resize_to_limit: [28, 28]), alt: 'User avatar', size: '28x28', class: 'is-rounded' %>
+              </figure>
             <% else %>
-              <%= image_tag 'user_icon.png', alt: 'User icon', size: '28x28' %>
+              <figure class="image is-28x28">
+                <%= image_tag 'user_icon.png', alt: 'User icon', size: '28x28', class: 'is-rounded' %>
+              </figure>
             <% end %>
           </span>
           <span>
