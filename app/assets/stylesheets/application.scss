@@ -17,3 +17,15 @@
 $primary: #1c8ef8;
 
 @import "bulma";
+
+.main-background {
+    // background-image:
+    // linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)),
+    // url('bg.jpg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+};

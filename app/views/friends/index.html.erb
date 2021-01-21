@@ -1,27 +1,29 @@
-<!-- Friends Tabs-->
-<div class="tabs">
-  <ul>
-    <li class="is-active"><%= link_to 'Friends', friends_path %></li>
-    <li><%= link_to 'Incoming Friendship Requests', incoming_friendship_requests_path %></li>
-    <li><%= link_to 'Sent Friendship Requests', sent_friendship_requests_path %></li>
-  </ul>
-</div>
+<div class="box">
+  <!-- Friends Tabs-->
+  <div class="tabs">
+    <ul>
+      <li class="is-active"><%= link_to 'Friends', friends_path %></li>
+      <li><%= link_to 'Incoming Friendship Requests', incoming_friendship_requests_path %></li>
+      <li><%= link_to 'Sent Friendship Requests', sent_friendship_requests_path %></li>
+    </ul>
+  </div>
 
-<% if @friends.empty? %>
-  <p>u don't have friends 🙁</p>
-<% else %>
-  <h1 class="title"><%= pluralize(@friends.count, 'friend') %></h1>
-  <% @friends.each do |friend| %>
-    <%= render layout: 'users/card', locals: { user: friend } do %>
-      <%= form_with url: friend_path(friend), method: :delete do |f| %>
-        <div class="buttons is-right">
-          <div class="field">
-            <div class="control">
-              <button class="button is-danger is-outlined" type="submit">Unfriend</button>
+  <% if @friends.empty? %>
+    <p>u don't have friends 🙁</p>
+  <% else %>
+    <h1 class="title"><%= pluralize(@friends.count, 'friend') %></h1>
+    <% @friends.each do |friend| %>
+      <%= render layout: 'users/card', locals: { user: friend } do %>
+        <%= form_with url: friend_path(friend), method: :delete do |f| %>
+          <div class="buttons is-right">
+            <div class="field">
+              <div class="control">
+                <button class="button is-danger is-outlined" type="submit">Unfriend</button>
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
     <% end %>
   <% end %>
-<% end %>
+</div>

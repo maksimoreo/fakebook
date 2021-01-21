@@ -1,28 +1,30 @@
-<!-- Friends Tabs-->
-<div class="tabs">
-  <ul>
-    <li><%= link_to 'Friends', friends_path %></li>
-    <li><%= link_to 'Incoming Friendship Requests', incoming_friendship_requests_path %></li>
-    <li class="is-active"><%= link_to 'Sent Friendship Requests', sent_friendship_requests_path %></li>
-  </ul>
-</div>
+<div class="box">
+  <!-- Friends Tabs-->
+  <div class="tabs">
+    <ul>
+      <li><%= link_to 'Friends', friends_path %></li>
+      <li><%= link_to 'Incoming Friendship Requests', incoming_friendship_requests_path %></li>
+      <li class="is-active"><%= link_to 'Sent Friendship Requests', sent_friendship_requests_path %></li>
+    </ul>
+  </div>
 
-<% if @sent_friendship_requests.empty? %>
-  <h1 class="title">No sent friend requests</h1>
-<% else %>
-  <h1 class="title">You sent <%= pluralize(@sent_friendship_requests.count, 'friend request') %></h1>
-  <% @sent_friendship_requests.each do |friendship| %>
-    <% friend = friendship.friend_of_user(current_user) %>
-    <%= render layout: 'users/card', locals: { user: friend } do %>
-        <%= form_with url: sent_friendship_request_path(friendship), method: :delete do |f| %>
-        <div class="buttons is-right">
-          <div class="field">
-            <div class="control">
-              <button class="button is-danger is-outlined" type="submit">Delete Request</button>
+  <% if @sent_friendship_requests.empty? %>
+    <h1 class="title">No sent friend requests</h1>
+  <% else %>
+    <h1 class="title">You sent <%= pluralize(@sent_friendship_requests.count, 'friend request') %></h1>
+    <% @sent_friendship_requests.each do |friendship| %>
+      <% friend = friendship.friend_of_user(current_user) %>
+      <%= render layout: 'users/card', locals: { user: friend } do %>
+          <%= form_with url: sent_friendship_request_path(friendship), method: :delete do |f| %>
+          <div class="buttons is-right">
+            <div class="field">
+              <div class="control">
+                <button class="button is-danger is-outlined" type="submit">Delete Request</button>
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
     <% end %>
   <% end %>
-<% end %>
+</div>

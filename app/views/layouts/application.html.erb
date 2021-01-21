@@ -13,10 +13,11 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body >
+  <body>
     <%= render 'shared/navbar' %>
-
-    <% if [:notice, :alert, :success, :error].any? { |key| flash.key?(key) } %>
+    <section class="hero is-fullheight-with-navbar">
+      <div class="hero-head">
+        <% if [:notice, :alert, :success, :error].any? { |key| flash.key?(key) } %>
           <% { notice: :info, alert: :warning, success: :success, error: :danger }.each do |flash_type, div_class| %>
             <% if flash[flash_type] %>
               <div class="notification is-<%= div_class %>">
@@ -25,14 +26,16 @@
               </div>
             <% end %>
           <% end %>
-    <% end %>
-
-    <section class="section">
-      <div class="container">
-        <%= yield %>
+        <% end %>
+      </div>
+      <div class="hero-body main-background">
+        <div class="container">
+          <%= yield %>
+        </div>
+      </div>
+      <div class="hero-foot">
+        <%= render 'shared/footer' %>
       </div>
     </section>
-
-    <%= render 'shared/footer' %>
   </body>
 </html>
