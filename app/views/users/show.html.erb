@@ -1,45 +1,87 @@
-<h1><%= @user.username %></h1>
-<p>Email: <%= @user.email %></p>
-
-<% if @user.avatar.attached? %>
-  <p>Avatar:</p>
-  <%= image_tag @user.avatar %>
-<% end %>
-
-<% unless @user == current_user %>
-  <% if @friendship.nil? %>
-    <%= form_with url: sent_friendship_requests_path do |f| %>
-      <%= f.hidden_field :to_user_id, value: @user.id %>
-      <%= f.submit 'Send friend request' %>
-    <% end %>
-  <% else # Friendship exists %>
-    <% if @friendship.accepted? %>
-      <p>this user is ur friend
-        <%= form_with url: friend_url(@friendship.friend_of_user(current_user)), method: :delete do |f| %>
-          <%= f.submit 'Unfriend' %>
+<div class="columns">
+  <div class="column is-4">
+    <div class="box">
+      <figure class="image is-rounded">
+        <% if @user.avatar.attached? %>
+          <%= image_tag @user.avatar.variant(resize_to_limit: [128, 128]), class: 'is-rounded' %>
+        <% else %>
+          <img src="https://versions.bulma.io/0.7.0/images/placeholders/128x128.png" alt="placeholder image" class="is-rounded">
         <% end %>
-      </p>
-    <% else # Friendship is not accepted %>
-      <% if @friendship.sent_by_user? current_user %>
-        friendship request was sent by u, wait for user to reply
-        <%= form_with url: friend_url(@friendship.friend_of_user(current_user)), method: :delete do |f| %>
-          <%= f.submit 'Delete request' %>
+      </figure>
+      <h1 class="title"><%= @user.username %></h1>
+      <h2 class="subtitle"><%= @user.email %></h2>
+
+
+      <% unless @user == current_user %>
+        <% if @friendship.nil? %>
+          <%= form_with url: sent_friendship_requests_path do |f| %>
+            <%= f.hidden_field :to_user_id, value: @user.id %>
+            <div class="field">
+              <p class="control">
+                <button class="button is-primary is-fullwidth" type="submit">
+                  <span class="icon is-left is-small">
+                    <i class="fas fa-user-plus"></i>
+                  </span>
+                  <span>Send friend request</span>
+                </button>
+              </p>
+            </div>
+          <% end %>
+        <% else # Friendship exists %>
+          <% if @friendship.accepted? %>
+            <%= form_with url: friend_url(@friendship.friend_of_user(current_user)), method: :delete do |f| %>
+              <div class="field">
+                <p class="control">
+                  <button class="button is-danger is-outlined is-fullwidth" type="submit">
+                    <span>
+                      Unfriend
+                    </span>
+                  </button>
+                </p>
+              </div>
+            <% end %>
+          <% else # Friendship is not accepted %>
+            <% if @friendship.sent_by_user? current_user %>
+              <%= form_with url: friend_url(@friendship.friend_of_user(current_user)), method: :delete do |f| %>
+                <div class="field">
+                  <p class="control">
+                    <button class="button is-danger is-outlined is-fullwidth" type="submit">
+                      <span>
+                        Delete request
+                      </span>
+                    </button>
+                  </p>
+                </div>
+              <% end %>
+            <% else %>
+              <%= render partial: 'incoming_friendship_request/form' %>
+            <% end %>
+          <% end %>
         <% end %>
-      <% else %>
-        <%= render partial: 'incoming_friendship_request/form' %>
       <% end %>
+
+
+
+
+    </div>
+    <div class="box">
+      <p class="title has-text-centered">
+        <%= pluralize(@user.friends.count, 'friend') %>
+      </p>
+      <% @user.friends.each do |friend| %>
+        <p>
+          <%= link_to friend.username, friend %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+  <div class="column is-8">
+    <p class="title has-text-centered">
+      <%= pluralize(@user.posts.count, 'post') %>
+    </p>
+
+    <% @user.posts.each do |post| %>
+      <%= render partial: 'posts/small', locals: { post: post } %>
     <% end %>
-  <% end %>
-<% end %>
-
-<h1>Friends</h1>
-<ul>
-  <% @user.friends.each do |friend| %>
-    <li><%= link_to friend.username, user_path(friend) %></li>
-  <% end %>
-</ul>
-
-<h1><%= @user.username %>'s recent posts</h1>
-<% @user.posts.each do |post| %>
-  <%= render partial: 'posts/small', locals: { post: post } %>
-<% end %>
+  </div>
+</div>

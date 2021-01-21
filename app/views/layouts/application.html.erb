@@ -5,22 +5,26 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <!-- bulma -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css">
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body >
     <%= render 'shared/navbar' %>
-    <% if notice %>
-      <p class="notice"><%= notice %></p>
-      <hr>
-    <% end %>
 
-    <% if alert %>
-      <p class="alert"><%= alert %></p>
-      <hr>
+    <% if [:notice, :alert, :success, :error].any? { |key| flash.key?(key) } %>
+          <% { notice: :info, alert: :warning, success: :success, error: :danger }.each do |flash_type, div_class| %>
+            <% if flash[flash_type] %>
+              <div class="notification is-<%= div_class %>">
+                <button class="delete"></button>
+                <%= flash[flash_type] %>
+              </div>
+            <% end %>
+          <% end %>
     <% end %>
 
     <section class="section">
@@ -28,5 +32,7 @@
         <%= yield %>
       </div>
     </section>
+
+    <%= render 'shared/footer' %>
   </body>
 </html>

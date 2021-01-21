@@ -1,21 +1,36 @@
+<div class="box">
+  <article class="media">
+    <div class="media-left">
+      <figure class="image is-64x64">
+        <% if post.author.avatar.attached? %>
+          <%= image_tag post.author.avatar.variant(resize_to_limit: [64, 64]), class: 'is-rounded' %>
+        <% else %>
+          <img src="https://versions.bulma.io/0.7.0/images/placeholders/64x64.png" alt="Image" class="is-rounded">
+        <% end %>
+      </figure>
+    </div>
+    <div class="media-content">
+      <%= link_to post.author.username, post.author, class: 'is-size-6' %>
+      <p>
+        <% if post.text.length > 200 %>
+          <%= post.text.first(200) %>...
+        <% else %>
+          <%= post.text %>
+        <% end %>
+      </p>
+      <p>
+        <%= link_to 'Read', post %>
+        · <%= pluralize(post.comments.count, 'comment') %>
+        · <%= distance_of_time_in_words(post.created_at, Time.now) %> ago
 
-  <p>
-    <% if post.text.length > 200 %>
-      <%= post.text.first(200) %>...
-    <% else %>
-      <%= post.text %>
-    <% end %>
-  </p>
-  <p>
-    <%= link_to 'Read / Comment', post %> |
-    Author: <%= link_to post.author.username, post.author %> |
-    Created: <%= post.created_at %>
+        <% if post.created_at != post.updated_at %>
+          · Updated <%= distance_of_time_in_words(post.updated_at, Time.now) %> ago
+        <% end %>
 
-    <% if post.created_at != post.updated_at %>
-      | Updated: <%= post.updated_at %>
-    <% end %>
-
-    <% if post.author == current_user %>
-      | <%= link_to 'Edit', edit_post_path(post) %>
-    <% end %>
-  </p>
+        <% if post.author == current_user %>
+          · <%= link_to 'Edit', edit_post_path(post) %>
+        <% end %>
+      </p>
+    </div>
+  </article>
+</div>
