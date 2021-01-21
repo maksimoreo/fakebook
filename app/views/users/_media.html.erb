@@ -1,0 +1,9 @@
+<div class="media">
+    <div class="media-left">
+      <%= render partial: 'users/avatar', locals: { user: user, avatar_size: 64 } %>
+    </div>
+    <div class="media-content">
+      <%= link_to user.username, user %>
+      <%= yield %>
+    </div>
+</div>

@@ -1,32 +1,56 @@
-<h1><%= @post.author.username %> on <%= @post.created_at %></h1>
-
-<% if @post.author == current_user %>
-  <%= link_to 'Edit', edit_post_path(@post) %>
-<% end %>
-
-<p><%= @post.text %></p>
-
-<p>
-<%= @post.likes.count %> likes |
-<% if @like.new_record? %>
-  <%= form_with model: [@post, @like] do |f| %>
-    <%= f.submit 'Like' %>
-  <% end %>
-<% else %>
-  <%= form_with model: [@post, @like], method: :delete do |f| %>
-    <%= f.submit 'Unlike' %>
-  <% end %>
-<% end %>
-<% if @post.created_at != @post.updated_at %>
-  | Edited: <%= @post.updated_at %>
-<% end %>
-</p>
-
-<h1><%= @post.comments.order(created_at: :asc).count %> Comments</h1>
-<%= render partial: 'posts/comments/form', object: @comment %>
-
-<% @post.comments.each do |comment| %>
-  <% unless comment.new_record? %>
-    <%= render partial: 'posts/comments/comment', locals: { comment: comment } %>
-  <% end %>
-<% end %>
+<div class="columns">
+  <div class="column is-8">
+    <div class="media">
+      <div class="media-left">
+        <%= render partial: 'users/avatar', locals: { avatar_size: 64, user: @post.author } %>
+      </div>
+      <div class="media-content">
+        <h1 class="title">
+          <%= link_to @post.author.username, @post.author %> wrote <%= distance_of_time_in_words(@post.created_at, Time.now) %> ago
+        </h1>
+        <% if @post.created_at != @post.updated_at %>
+          <p class="subtitle">Updated <%= distance_of_time_in_words(@post.updated_at, Time.now) %> ago</p>
+        <% end %>
+      </div>
+    </div>
+    <p>
+      <%= @post.text%>
+    </p>
+    <hr>
+    <div class="field is-grouped">
+      <div class="control">
+        <div class="buttons has-addons is-multiline">
+          <button class="button is-static">
+            <%= @post.likes.count %> likes
+          </button>
+          <% if @like.new_record? %>
+            <%= form_with model: [@post, @like] do |f| %>
+              <button class="button is-primary" type="submit">Like</button>
+            <% end %>
+          <% else %>
+            <%= form_with model: [@post, @like], method: :delete do |f| %>
+              <button class="button is-primary" type="submit">Unlike</button>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <% if @post.author == current_user %>
+        <%= link_to 'Edit', edit_post_path(@post), class: 'button' %>
+      <% end %>
+    </div>
+  </div>
+  <div class="column is-4">
+    <div class="block">
+      <h1 class="title">Add a Comment</h1>
+      <%= render partial: 'posts/comments/form' %>
+    </div>
+    <div class="block">
+      <h1 class="title"><%= @post.comments.order(created_at: :asc).count %> Comments</h1>
+      <% @post.comments.each do |comment| %>
+        <% unless comment.new_record? %>
+          <%= render partial: 'posts/comments/comment', locals: { comment: comment } %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

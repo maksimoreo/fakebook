@@ -20,6 +20,7 @@
       </p>
       <p>
         <%= link_to 'Read', post %>
+        · <%= pluralize(post.likes.count, 'likes') %>
         · <%= pluralize(post.comments.count, 'comment') %>
         · <%= distance_of_time_in_words(post.created_at, Time.now) %> ago
 

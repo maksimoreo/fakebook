@@ -1,0 +1,7 @@
+<div class="image is-<%= avatar_size %>x<%= avatar_size %>">
+  <% if user.avatar.attached? %>
+    <%= image_tag user.avatar.variant(resize_to_limit: [avatar_size, avatar_size]), class: 'is-rounded' %>
+  <% else %>
+    <%= image_tag "https://versions.bulma.io/0.7.0/images/placeholders/#{avatar_size}x#{avatar_size}.png", alt: 'placeholder avatar image', class: 'is-rounded' %>
+  <% end %>
+</div>

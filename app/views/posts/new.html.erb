@@ -1,4 +1,4 @@
-<h1>Create new post</h1>
+<h1 class="title">Create new post</h1>
 
 <div>
   <% unless @post.errors.empty? %>
@@ -13,12 +13,16 @@
   <% end %>
 
   <%= form_with model: @post, local: true do |f| %>
-    <p>
-      <%= f.text_area :text, size: '70x10' %>
-    </p>
-
-    <p>
-      <%= f.submit %>
-    </p>
+    <div class="field">
+      <%= f.label :text, class: 'label' %>
+      <div class="control">
+        <%= f.text_area :text, class: 'textarea' %>
+      </div>
+    </div>
+    <div class="field">
+      <div class="control">
+        <button class="button is-primary" type="submit">Create Post</button>
+      </div>
+    </div>
   <% end %>
 </div>

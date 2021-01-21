@@ -1,0 +1,15 @@
+<div class="columns is-vcentered is-mobile">
+  <div class="column is-narrow">
+    <%= render partial: 'users/avatar', locals: { user: user, avatar_size: 64 } %>
+  </div>
+  <div class="column">
+    <div class="columns is-vcentered is-mobile">
+      <div class="column">
+        <%= link_to user.username, user %>
+      </div>
+      <div class="column">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+</div>

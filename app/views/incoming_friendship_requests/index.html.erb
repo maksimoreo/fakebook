@@ -1,18 +1,51 @@
-<p>
-  <%= link_to 'Friends', friends_path %>
-  <%= link_to 'Incoming friendship requests', incoming_friendship_requests_path %>
-  <%= link_to 'Sent friendship requests', sent_friendship_requests_path %>
-</p>
+<!-- Friends Tabs-->
+<div class="tabs">
+  <ul>
+    <li><%= link_to 'Friends', friends_path %></li>
+    <li class="is-active"><%= link_to 'Incoming Friendship Requests', incoming_friendship_requests_path %></li>
+    <li><%= link_to 'Sent Friendship Requests', sent_friendship_requests_path %></li>
+  </ul>
+</div>
 
-<h1>u have <%= @incoming_friendship_requests.count %> incoming friendship requests</h1>
-
-<p>Accept all</p>
-<p>Decline all</p>
-
-<ul>
+<% if @incoming_friendship_requests.empty? %>
+  <h1 class="title">No new requests</h1>
+<% else %>
+  <h1 class="title"><%= pluralize(@incoming_friendship_requests.count, 'friend request') %></h1>
+  <div class="columns">
+    <div class="column">
+      <div class="field">
+        <div class="control">
+          <button class="button is-fullwidth is-success">Accept All Requests</button>
+        </div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="field">
+        <div class="control">
+          <button class="button is-fullwidth is-danger is-outlined">Decline All Requests</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <% @incoming_friendship_requests.each do |friendship| %>
-    <li>
-      <%= render partial: 'incoming_friendship_requests/form', object: friendship, as: 'friendship' %>
-    </li>
+    <% friend = friendship.to_user %>
+    <%= render layout: 'users/card', locals: { user: friend } do %>
+      <div class="buttons is-right">
+        <%= form_with url: incoming_friendship_requests_path(friendship), method: :patch do |f| %>
+          <div class="field">
+            <div class="control">
+              <button class="button is-success" type="submit">Add Friend</button>
+            </div>
+          </div>
+        <% end %>
+        <%= form_with url: incoming_friendship_requests_path(friendship), method: :delete do |f| %>
+          <div class="field">
+            <div class="control">
+              <button class="button is-danger is-outlined" type="submit">Unfriend</button>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
-</ul>
+<% end %>

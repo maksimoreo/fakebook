@@ -1,13 +1,23 @@
-<p><%= comment.text %></p>
-<p>
-  <%= comment.user.username %>
-  | <%= comment.created_at %>
-  <% if comment.updated_at != comment.created_at %>
-    | Edited: <%= comment.updated_at %>
-  <% end %>
+<div class="block">
+  <div class="media">
+    <div class="media-left">
+      <%= render partial: 'users/avatar', locals: { avatar_size: 48, user: comment.user } %>
+    </div>
+    <div class="media-content">
+      <p><%= comment.text %></p>
+      <p>
+        <%= link_to comment.user.username, comment.user %>
+        <%= distance_of_time_in_words(comment.created_at, Time.now) %> ago
+        <% if comment.updated_at != comment.created_at %>
+          · Updated <%= distance_of_time_in_words(comment.updated_at, Time.now) %> ago
+        <% end %>
 
-  <% if comment.user == current_user %>
-    | <%= link_to 'Edit', edit_post_comment_path(comment.post, comment) %>
-    | <%= link_to 'Delete', post_comment_path(comment.post, comment), method: :delete %>
-  <% end %>
-</p>
+        <% if comment.user == current_user %>
+          · <%= link_to 'Edit', edit_post_comment_path(comment.post, comment) %>
+          · <%= link_to 'Delete', post_comment_path(comment.post, comment), method: :delete %>
+        <% end %>
+      </p>
+    </div>
+  </div>
+
+</div>
