@@ -64,9 +64,7 @@
         <%= pluralize(@user.friends.count, 'friend') %>
       </p>
       <% @user.friends.each do |friend| %>
-        <p>
-          <%= link_to friend.username, friend %>
-        </p>
+        <%= render partial: 'users/card', locals: { user: friend } %>
       <% end %>
     </div>
   </div>

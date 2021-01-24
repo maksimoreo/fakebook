@@ -1,48 +1,46 @@
 <div class="columns">
-  <div class="column is-4 is-offset-4">
-    <div class="box has-shadow">
-      <h1 class="title">Log in</h1>
+  <div class="column is-4 is-offset-4 has-shadow">
+    <h1 class="title has-text-centered">Log in</h1>
 
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <div class="field">
-          <%= f.label :login, class: 'label' %>
-          <div class="control has-icons-left">
-            <%= f.text_field :login, autofocus: true, autocomplete: "email", placeholder: 'Email or username', class: "input" %>
-            <span class="icon is-small is-left">
-              <i class="fas fa-user"></i>
-            </span>
-          </div>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="field">
+        <%= f.label :login, class: 'label' %>
+        <div class="control has-icons-left">
+          <%= f.text_field :login, autofocus: true, autocomplete: "email", placeholder: 'Email or username', class: "input" %>
+          <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+          </span>
         </div>
+      </div>
 
-        <div class="field">
-          <%= f.label :password, class: 'label' %>
-          <div class="control has-icons-left">
-            <%= f.password_field :password, autocomplete: "current-password", placeholder: 'Password', class: "input" %>
-            <span class="icon is-small is-left">
-              <i class="fas fa-key"></i>
-            </span>
-          </div>
+      <div class="field">
+        <%= f.label :password, class: 'label' %>
+        <div class="control has-icons-left">
+          <%= f.password_field :password, autocomplete: "current-password", placeholder: 'Password', class: "input" %>
+          <span class="icon is-small is-left">
+            <i class="fas fa-key"></i>
+          </span>
         </div>
+      </div>
 
-        <% if devise_mapping.rememberable? %>
-          <div class="field">
-            <div class="control">
-              <%= f.label :remember_me do %>
-                <%= f.check_box :remember_me %>
-                Remember me
-              <% end %>
-            </div>
-          </div>
-        <% end %>
-
+      <% if devise_mapping.rememberable? %>
         <div class="field">
           <div class="control">
-            <%= f.submit "Log in", class: 'button is-link' %>
+            <%= f.label :remember_me do %>
+              <%= f.check_box :remember_me %>
+              Remember me
+            <% end %>
           </div>
         </div>
       <% end %>
 
-      <%= render "devise/shared/links" %>
-    </div>
+      <div class="field">
+        <div class="control">
+          <%= f.submit "Log in", class: 'button is-link is-fullwidth' %>
+        </div>
+      </div>
+    <% end %>
+
+    <%= render "devise/shared/links" %>
   </div>
 </div>

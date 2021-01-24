@@ -1,6 +1,11 @@
 <h1 class="is-size-1 has-text-weight-bold has-text-centered has-text-primary">Timeline</h1>
-<h2 class="subtitle has-text-centered"><%= @posts.count %> latest posts from you and your friends</h2>
 
-<% @posts.each do |post| %>
-  <%= render partial: 'posts/small', locals: { post: post } %>
+<% if @posts.empty? %>
+  <h2 class="subtitle has-text-centered">Your timeline is empty... 💤 Add some <%= link_to 'friends' %> or <%= link_to 'write a post', new_post_path %>!</h2>
+<% else %>
+  <h2 class="subtitle has-text-centered"><%= @posts.count %> latest posts from you and your friends</h2>
+
+  <% @posts.each do |post| %>
+    <%= render partial: 'posts/small', locals: { post: post } %>
+  <% end %>
 <% end %>

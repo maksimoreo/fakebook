@@ -6,8 +6,11 @@
       </div>
       <div class="media-content">
         <h1 class="title">
-          <%= link_to @post.author.username, @post.author %> wrote <%= distance_of_time_in_words(@post.created_at, Time.now) %> ago
+          <%= link_to @post.author.username, @post.author %>
         </h1>
+        <h2 class="subtitle">
+          <%= distance_of_time_in_words(@post.created_at, Time.now) %> ago
+        </h2>
         <% if @post.created_at != @post.updated_at %>
           <p class="subtitle">Updated <%= distance_of_time_in_words(@post.updated_at, Time.now) %> ago</p>
         <% end %>

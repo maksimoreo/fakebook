@@ -9,7 +9,7 @@
   </div>
 
   <% if @friends.empty? %>
-    <p>u don't have friends 🙁</p>
+    <h1 class="title">u don't have friends 🙁</h1>
   <% else %>
     <h1 class="title"><%= pluralize(@friends.count, 'friend') %></h1>
     <% @friends.each do |friend| %>

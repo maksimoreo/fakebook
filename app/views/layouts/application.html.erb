@@ -7,34 +7,47 @@
 
     <!-- bulma -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- fontawesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css">
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <%= render 'shared/navbar' %>
-    <section class="hero is-fullheight-with-navbar">
-      <div class="hero-head">
-        <% if [:notice, :alert, :success, :error].any? { |key| flash.key?(key) } %>
-          <% { notice: :info, alert: :warning, success: :success, error: :danger }.each do |flash_type, div_class| %>
-            <% if flash[flash_type] %>
-              <div class="notification is-<%= div_class %>">
-                <button class="delete"></button>
-                <%= flash[flash_type] %>
-              </div>
-            <% end %>
+  <body class="has-navbar-fixed-top">
+
+    <!-- notifications -->
+    <div class="notifications">
+      <% if [:notice, :alert, :success, :error].any? { |key| flash.key?(key) } %>
+        <% { notice: :info, alert: :warning, success: :success, error: :danger }.each do |flash_type, div_class| %>
+          <% if flash[flash_type] %>
+            <div class="notification is-<%= div_class %> m-3">
+              <button class="delete"></button>
+              <%= flash[flash_type] %>
+            </div>
           <% end %>
         <% end %>
-      </div>
+      <% end %>
+    </div>
+
+    <!-- navbar -->
+    <%= render 'shared/navbar' %>
+
+    <section class="hero is-fullheight-with-navbar">
       <div class="hero-body main-background">
         <div class="container">
+
+        <!-- page content -->
           <%= yield %>
+
         </div>
       </div>
       <div class="hero-foot">
+
+        <!-- footer -->
         <%= render 'shared/footer' %>
+
       </div>
     </section>
   </body>

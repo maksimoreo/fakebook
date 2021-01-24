@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Fakebook</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <!-- bulma -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css">
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <section class="hero is-fullheight">
+      <div class="hero-head has-navbar-fixed-top">
+        <% if [:notice, :alert, :success, :error].any? { |key| flash.key?(key) } %>
+          <% { notice: :info, alert: :warning, success: :success, error: :danger }.each do |flash_type, div_class| %>
+            <% if flash[flash_type] %>
+              <div class="notification is-<%= div_class %>">
+                <button class="delete"></button>
+                <%= flash[flash_type] %>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+        <%= render 'shared/navbar' %>
+      </div>
+      <div class="hero-body main-background">
+        <div class="container">
+          <%= yield %>
+        </div>
+      </div>
+      <div class="hero-foot">
+        <%= render 'shared/footer' %>
+      </div>
+    </section>
+  </body>
+</html>
+
+
+
+  <body class="has-navbar-fixed-top">
+    <%= render 'shared/navbar' %>
+
+    <% if [:notice, :alert, :success, :error].any? { |key| flash.key?(key) } %>
+      <% { notice: :info, alert: :warning, success: :success, error: :danger }.each do |flash_type, div_class| %>
+        <% if flash[flash_type] %>
+          <div class="notification is-<%= div_class %>">
+            <button class="delete"></button>
+            <%= flash[flash_type] %>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <section class="section">
+      <div class="container">
+        <%= yield %>
+      </div>
+    </section>
+
+    <%= render 'shared/footer' %>
+  </body>
+</html>

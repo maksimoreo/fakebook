@@ -10,7 +10,12 @@
       </figure>
     </div>
     <div class="media-content">
-      <%= link_to post.author.username, post.author, class: 'is-size-6' %>
+      <h1 class="title">
+        <%= link_to post.author.username, post.author %>
+      </h1>
+      <h2 class="subtitle">
+        <%= distance_of_time_in_words(post.created_at, Time.now) %> ago
+      </h2>
       <p>
         <% if post.text.length > 200 %>
           <%= post.text.first(200) %>...
@@ -18,7 +23,7 @@
           <%= post.text %>
         <% end %>
       </p>
-      <p>
+      <p class="has-text-grey-light">
         <%= link_to 'Read', post %>
         · <%= pluralize(post.likes.count, 'likes') %>
         · <%= pluralize(post.comments.count, 'comment') %>

@@ -29,3 +29,10 @@ $primary: #1c8ef8;
     background-position: center;
     background-repeat: no-repeat;
 };
+
+.notifications {
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+    bottom: 0;
+}

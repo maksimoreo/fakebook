@@ -32,14 +32,14 @@
       <% friend = friendship.to_user %>
       <%= render layout: 'users/card', locals: { user: friend } do %>
         <div class="buttons is-right">
-          <%= form_with url: incoming_friendship_requests_path(friendship), method: :patch do |f| %>
+          <%= form_with url: incoming_friendship_request_path(friendship), method: :patch do |f| %>
             <div class="field">
               <div class="control">
                 <button class="button is-success" type="submit">Add Friend</button>
               </div>
             </div>
           <% end %>
-          <%= form_with url: incoming_friendship_requests_path(friendship), method: :delete do |f| %>
+          <%= form_with url: incoming_friendship_request_path(friendship), method: :delete do |f| %>
             <div class="field">
               <div class="control">
                 <button class="button is-danger is-outlined" type="submit">Unfriend</button>
