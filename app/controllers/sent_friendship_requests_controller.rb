@@ -7,7 +7,7 @@ class SentFriendshipRequestsController < ApplicationController
     f = Friendship.new(to_user_id: params[:to_user_id], from_user_id: current_user.id)
 
     if f.save
-      flash[:notice] = "You sended friend request to #{f.to_user.username}"
+      flash[:notice] = "You have sent friend request to #{f.to_user.username}. Wait for user response. ⏳"
     else
       flash[:alert] = "Could not send friend request to #{f.to_user.username}"
     end

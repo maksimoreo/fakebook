@@ -16,7 +16,7 @@ class IncomingFriendshipRequestsController < ApplicationController
     friend = @friendship.friend_of_user(current_user)
     redirect_to user_path(friend)
     @friendship.destroy
-    flash[:notice] = "#{friend.username} is now ur friend! 🎉🥳🤝"
+    flash[:notice] = "#{friend.username} is not your friend anymore... 🙁"
   end
 
   private
