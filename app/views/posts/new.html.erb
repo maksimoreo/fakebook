@@ -1,4 +1,4 @@
-<h1 class="title">Create new post</h1>
+<h1 class="title has-text-centered">Create new post</h1>
 
 <div>
   <% unless @post.errors.empty? %>
@@ -21,7 +21,9 @@
     </div>
     <div class="field">
       <div class="control">
-        <button class="button is-primary" type="submit">Create Post</button>
+        <div class="buttons is-right">
+          <button class="button is-primary" type="submit">Create Post</button>
+        </div>
       </div>
     </div>
   <% end %>

@@ -10,10 +10,10 @@
         </h1>
         <h2 class="subtitle">
           <%= distance_of_time_in_words(@post.created_at, Time.now) %> ago
+          <% if @post.created_at != @post.updated_at %>
+            (updated <%= distance_of_time_in_words(@post.updated_at, Time.now) %> ago)
+          <% end %>
         </h2>
-        <% if @post.created_at != @post.updated_at %>
-          <p class="subtitle">Updated <%= distance_of_time_in_words(@post.updated_at, Time.now) %> ago</p>
-        <% end %>
       </div>
     </div>
     <p>

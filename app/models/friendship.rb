@@ -2,7 +2,6 @@ class Friendship < ApplicationRecord
   belongs_to :from_user, class_name: 'User'
   belongs_to :to_user, class_name: 'User'
 
-  validates :accepted, null: false
   validates :from_user, uniqueness: { scope: :to_user }
 
   validate :cannot_add_self
