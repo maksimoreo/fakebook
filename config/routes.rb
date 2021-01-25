@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'posts#index'
+  root to: 'timeline#show'
 
   # Users
   devise_for :users
@@ -16,4 +16,7 @@ Rails.application.routes.draw do
     resources :likes, only: [:create, :destroy], controller: 'posts/likes'
     resources :comments, only: [:create, :edit, :destroy, :update], controller: 'posts/comments'
   end
+
+  # Timeline
+  resource :timeline, only: [:show]
 end
