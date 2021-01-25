@@ -165,6 +165,7 @@ GEM
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
+    rexml (3.2.4)
     rspec-core (3.10.1)
       rspec-support (~> 3.10.0)
     rspec-expectations (3.10.1)
@@ -253,6 +254,7 @@ DEPENDENCIES
   pg
   puma (~> 4.1)
   rails (~> 6.1)
+  rexml (~> 3.2)
   rspec-rails
   sass-rails (>= 6)
   selenium-webdriver
@@ -265,7 +267,7 @@ DEPENDENCIES
   webpacker (~> 4.0)
 
 RUBY VERSION
-   ruby 2.7.0p0
+   ruby 3.0.0p0
 
 BUNDLED WITH
-   2.1.2
+   2.2.3
