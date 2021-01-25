@@ -11,7 +11,7 @@
       <h1 class="title"><%= @user.username %></h1>
       <h2 class="subtitle"><%= @user.email %></h2>
       <!-- friendship button -->
-      <% unless @user == current_user %>
+      <% if user_signed_in? && @user != current_user %>
         <% if @friendship.nil? %>
           <%= form_with url: sent_friendship_requests_path do |f| %>
             <%= f.hidden_field :to_user_id, value: @user.id %>

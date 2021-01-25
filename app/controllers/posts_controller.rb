@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+
   def index
     @posts = Post.order(created_at: :desc)
   end
@@ -21,6 +23,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @comments = @post.comments.order(created_at: :desc)
     @like = @post.likes.find_or_initialize_by(user: current_user)
     @comment = @post.comments.new(user: current_user)
   end

@@ -1,4 +1,5 @@
 class IncomingFriendshipRequestsController < ApplicationController
+  before_action :authenticate_user!
   before_action :find_friendship, only: [:update, :destroy]
 
   def index

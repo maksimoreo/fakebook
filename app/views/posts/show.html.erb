@@ -26,13 +26,15 @@
           <button class="button is-static">
             <%= @post.likes.count %> likes
           </button>
-          <% if @like.new_record? %>
-            <%= form_with model: [@post, @like] do |f| %>
-              <button class="button is-primary" type="submit">Like</button>
-            <% end %>
-          <% else %>
-            <%= form_with model: [@post, @like], method: :delete do |f| %>
-              <button class="button is-primary" type="submit">Unlike</button>
+          <% if user_signed_in? %>
+            <% if @like.new_record? %>
+              <%= form_with model: [@post, @like] do |f| %>
+                <button class="button is-primary" type="submit">Like</button>
+              <% end %>
+            <% else %>
+              <%= form_with model: [@post, @like], method: :delete do |f| %>
+                <button class="button is-primary" type="submit">Unlike</button>
+              <% end %>
             <% end %>
           <% end %>
         </div>
@@ -44,12 +46,16 @@
   </div>
   <div class="column is-4">
     <div class="block">
-      <h1 class="title">Add a Comment</h1>
-      <%= render partial: 'posts/comments/form' %>
+      <h1 class="title has-text-centered">Add a Comment</h1>
+      <% if user_signed_in? %>
+        <%= render partial: 'posts/comments/form' %>
+      <% else %>
+        <%= link_to 'Log in', new_user_session_path %> to add your comment here!
+      <% end %>
     </div>
     <div class="block">
-      <h1 class="title"><%= @post.comments.order(created_at: :asc).count %> Comments</h1>
-      <% @post.comments.each do |comment| %>
+      <h1 class="title has-text-centered"><%= pluralize(@comments.count, 'Comment') %></h1>
+      <% @comments.each do |comment| %>
         <% unless comment.new_record? %>
           <%= render partial: 'posts/comments/comment', locals: { comment: comment } %>
         <% end %>

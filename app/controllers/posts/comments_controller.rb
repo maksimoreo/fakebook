@@ -1,4 +1,6 @@
 class Posts::CommentsController < ApplicationController
+  before_action :authenticate_user!
+
   def create
     comment = Post.find(params[:post_id]).comments.create(**comment_params, user: current_user)
     flash[:notice] = 'Comment added!'

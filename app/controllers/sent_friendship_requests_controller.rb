@@ -1,4 +1,6 @@
 class SentFriendshipRequestsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @sent_friendship_requests = current_user.sent_friendship_requests
   end
